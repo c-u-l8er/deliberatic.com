@@ -39,7 +39,7 @@ Where:
 - **w: A → [0, 1]** = initial weight function (derived from evidence strength)
 - **α: A → Agents** = authorship function (maps arguments to submitting agents)
 - **C** = Constitution (normative constraint set, see §4)
-- **ρ: Agents → ℝ⁺** = reputation function (ELO-derived, see §6)
+- **ρ: Agents × Domain → ℝ⁺** = **domain-aware** reputation function (ELO-derived and calibration-adjusted, see §6). If domain is unknown, Deliberatic falls back to a global `ρ₀: Agents → ℝ⁺`.
 
 This extends Dung's AF (1995) with bipolarity (Amgoud et al.), weights (Potyka 2019 wBAF semantics), and two novel additions: agent authorship tracking and constitutional constraints.
 
@@ -48,7 +48,7 @@ This extends Dung's AF (1995) with bipolarity (Amgoud et al.), weights (Potyka 2
 Deliberatic uses a modified version of Potyka's modular graded semantics for wBAFs. The acceptability degree of an argument a ∈ A is computed iteratively:
 
 ```
-σ(a) = w(a) · ρ(α(a)) + Σ[s ∈ Sup(a)] σ(s) · γ⁺ − Σ[t ∈ Att(a)] σ(t) · γ⁻
+σ(a) = w(a) · ρ(α(a), dom(a)) + Σ[s ∈ Sup(a)] σ(s) · γ⁺ − Σ[t ∈ Att(a)] σ(t) · γ⁻
 ```
 
 Where:
@@ -56,7 +56,8 @@ Where:
 - `Att(a)` = set of arguments attacking a
 - `γ⁺ ∈ (0,1)` = support propagation factor (default 0.6)
 - `γ⁻ ∈ (0,1)` = attack propagation factor (default 0.8)
-- `ρ(α(a))` = reputation of the authoring agent, normalized to [0.5, 2.0]
+- `dom(a)` = domain label for argument `a` (e.g. `"hydraulics"`, `"scheduling"`). Provided by the round/task metadata or inferred from the task description.
+- `ρ(α(a), dom(a))` = domain-aware reputation factor for the authoring agent, normalized to [0.5, 2.0]. If `dom(a)` is missing/unknown, use global `ρ₀(α(a))`. This term is **calibration-adjusted** (see §6.2) so consistently overconfident agents are down-weighted in the domains where they miscalibrate.
 
 The computation converges when `max|σₙ(a) − σₙ₋₁(a)| < ε` for all a ∈ A, with ε = 0.001. Convergence is guaranteed by the contraction property when γ⁺ + γ⁻ < 1 (see Potyka 2019, Theorem 3).
 
@@ -221,32 +222,75 @@ Export formats: JSON, CSV, PDF (compliance report), OTEL spans (distributed trac
 
 ---
 
-## 6. Reputation System
+## 6. Reputation & Calibration System (Domain-Aware)
 
-### 6.1 Dissent-Weighted ELO
+Deliberatic’s weighting must reflect not just “who is strong overall” but “who is strong **in this domain**” and “who is **well-calibrated** vs. systematically over/underconfident.”
 
-Agents carry a reputation score based on a modified ELO system:
+### 6.1 Domain-Aware Dissent-Weighted ELO
+
+Deliberatic maintains **two coupled reputations**:
+- Global: `ρ₀(agent)` (coarse prior when domain is unknown)
+- Domain: `ρ(agent, domain)` for each domain label used in rounds
+
+Per-domain ELO update:
 
 ```
-ρ_new(agent) = ρ_old(agent) + K · (S − E)
+ρ_new(agent, d) = ρ_old(agent, d) + K_d · (S − E_d)
 ```
 
 Where:
-- `K` = adjustment factor (default 32, decays with experience)
+- `d` = domain label for the round (string)
+- `K_d` = per-domain adjustment factor (default 32, decays with experience *in that domain*)
 - `S` = actual outcome (1.0 for winning position, 0.5 for supporting winner, 0.0 for rejected)
-- `E` = expected outcome based on current reputation: `1 / (1 + 10^((ρ_opponent − ρ_agent) / 400))`
+- `E_d` = expected outcome computed from domain ELOs: `1 / (1 + 10^((ρ_old(opponent, d) − ρ_old(agent, d)) / 400))`
 
-**Vindicated dissent bonus**: When a dissenting agent's prediction is later confirmed correct (the majority's decision failed), the dissenter receives a 1.5× K adjustment:
+Global ELO update mirrors the existing rule, but uses smaller steps (e.g. `K₀ = 8`) so global reputation evolves slowly and primarily serves as a fallback prior.
+
+**Vindicated dissent bonus (domain-scoped):** when a dissent is later confirmed correct for the same domain `d`, apply the bonus within that domain:
 
 ```
-ρ_new(dissenter) = ρ_old(dissenter) + 1.5 · K · (1.0 − E)
+ρ_new(dissenter, d) = ρ_old(dissenter, d) + 1.5 · K_d · (1.0 − E_d)
 ```
 
-This creates a systemic incentive for agents to speak up when they believe the majority is wrong — a critical property for avoiding groupthink in agent clusters.
+This preserves the anti-groupthink incentive while keeping expertise attribution domain-accurate.
 
-### 6.2 Reputation Bounds
+### 6.2 Calibration Tracking (Self-Modeling Signals)
 
-Reputation is bounded: `ρ ∈ [800, 2400]` (mirroring chess ELO ranges). New agents start at 1200. Reputation feeds back into the DAF weight function through the `ρ(α(a))` term, meaning experienced agents' arguments carry more initial mass.
+In addition to ELO, Deliberatic tracks **domain-specific calibration** for each agent, updated when outcomes become known (immediate tool outcomes, later offline evaluation, or explicit human adjudication).
+
+Calibration record (conceptual shape):
+
+- `domain_calibration`: `%{domain_string => %{accuracy: float, brier: float, ece: float, n: non_neg_integer, updated_at: ISO8601}}`
+  - `accuracy` = fraction of correct predictions/positions in that domain
+  - `brier` = Brier score on probabilistic claims (lower is better)
+  - `ece` = expected calibration error (lower is better)
+  - `n` = sample count supporting the metrics
+- `overconfidence_index`: float
+  - Positive when the agent frequently asserts high confidence and is wrong (aggregate + domain-weighted)
+- `underconfidence_index`: float
+  - Positive when the agent frequently defers / assigns low confidence but is correct (aggregate + domain-weighted)
+
+**How calibration affects weighting:** the reputation term used in §2.2 is calibration-adjusted per domain:
+
+- `ρ(α(a), dom(a))` is derived from ELO in that domain, **discounted** when calibration is poor and **bounded** to the same [0.5, 2.0] normalization range.
+
+(Exact discount function is configurable; default is monotone decreasing in `ece` and `overconfidence_index`.)
+
+### 6.3 Bounds & Normalization
+
+ELO values remain bounded per agent per domain:
+
+- `ρ(agent, d) ∈ [800, 2400]`
+- New agents start at 1200 in global and in any unseen domain (or can be initialized from global).
+
+Normalization into the semantics layer stays consistent with the original spec:
+
+- Map ELO to a multiplicative factor in `[0.5, 2.0]` (monotone in ELO), then apply calibration discount, and clamp back to `[0.5, 2.0]`.
+
+This ensures:
+- domain experts are weighted appropriately for domain-relevant rounds,
+- consistently miscalibrated agents do not dominate purely by rhetorical confidence,
+- new domains start safe via the global prior and limited influence until evidence accumulates.
 
 ---
 

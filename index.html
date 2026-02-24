@@ -957,8 +957,8 @@
                     ><span class="sym">→</span><span class="val">ℝ⁺</span
                     ><span class="sym">⟩</span> <br /><span class="cm"
                         >A=arguments · R⁻=attacks · R⁺=supports · w=evidence
-                        weights · α=authorship · C=constitution ·
-                        ρ=reputation</span
+                        weights · α=authorship · C=constitution · ρ=reputation
+                        (domain-aware, calibration-adjusted)</span
                     >
                     <br /><br /><span class="type">σ</span
                     ><span class="sym">(</span><span class="type">a</span
@@ -1074,7 +1074,7 @@
                             form directed edges. Acceptability computed via
                             iterative propagation —
                             <code
-                                >σ(a) = w(a)·ρ(α(a)) + Σ supports − Σ
+                                >σ(a) = w(a)·ρ(α(a), dom(a)) + Σ supports − Σ
                                 attacks</code
                             >
                             — converging under contraction when
@@ -1187,20 +1187,21 @@
                 <div class="proto-layer l-rep rv">
                     <div class="proto-left">
                         <div class="proto-lnum">Layer 6</div>
-                        <div class="proto-lname">Reputation</div>
+                        <div class="proto-lname">Reputation + Calibration</div>
                     </div>
                     <div class="proto-right">
                         <div class="proto-algo">
-                            Dissent-Weighted ELO
+                            Domain-Aware ELO + Calibration
                             <span class="pill">ρ ∈ [800, 2400]</span>
                         </div>
                         <div class="proto-detail">
-                            Modified ELO:
-                            <code>ρ_new = ρ_old + K·(S − E)</code>. Vindicated
-                            dissenters get 1.5× K bonus. Reputation feeds back
-                            into wBAF weights — experienced agents' arguments
-                            carry more initial mass. Creates systemic incentive
-                            against groupthink.
+                            Domain-aware ELO + calibration:
+                            <code>ρ_new(a,d) = ρ_old(a,d) + K_d·(S − E_d)</code
+                            >. Vindicated dissenters get 1.5× K bonus
+                            (domain-scoped). Weighting uses
+                            <code>ρ(α(a), dom(a))</code>, discounted for poor
+                            calibration (overconfidence / high ECE), so
+                            rhetorical certainty can’t dominate.
                         </div>
                         <div class="proto-ref">
                             Elo 1978 · Wu et al. 2025: "majority pressure
@@ -1247,7 +1248,8 @@
                             structured argument with typed evidence
                             (performance, resource, latency, schema). Parsed
                             into wBAF nodes. Initial weights = evidence strength
-                            × agent reputation <code>ρ(α(a))</code>. Agents can
+                            × domain-aware, calibration-adjusted reputation
+                            <code>ρ(α(a), dom(a))</code>. Agents can
                             <code>challenge()</code> — adding attack edges — or
                             <code>support()</code> — adding support edges.
                         </div>
@@ -1261,8 +1263,8 @@
                         <div class="flow-desc">
                             Iterative propagation:
                             <code
-                                >σ(a) = w(a)·ρ(α(a)) + Σ γ⁺·σ(supporters) − Σ
-                                γ⁻·σ(attackers)</code
+                                >σ(a) = w(a)·ρ(α(a), dom(a)) + Σ
+                                γ⁺·σ(supporters) − Σ γ⁻·σ(attackers)</code
                             >. Converges when max delta < ε=0.001. Typically 3-7
                             iterations. Result: every position has a continuous
                             acceptability degree in [0,1].
@@ -1455,7 +1457,9 @@
                         <li>Adaptive consensus (Raft / PBFT)</li>
                         <li>Constitutional normative DSL</li>
                         <li>Merkle evidence chains (SHA-256)</li>
-                        <li>Dissent-weighted ELO reputation</li>
+                        <li>
+                            Domain-aware ELO + calibration-adjusted reputation
+                        </li>
                         <li>A2A + MCP dual transport</li>
                     </ul>
                 </div>
