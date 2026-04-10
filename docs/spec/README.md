@@ -361,6 +361,48 @@ Task arrives → delegatic.com routes it
 
 ---
 
+## 8.1 PULSE Loop Manifest
+
+Deliberatic is a **PULSE-conforming loop** under OS-010. It is a sibling of AgenTroMatic — both are deliberation protocols, but Deliberatic's primary contribution is the **formal argumentation algebra** while AgenTroMatic adds Raft consensus and reputation. Both can coexist; Deliberatic publishes a leaner manifest focused on argumentation rounds.
+
+**Loop ID:** `deliberatic.argumentation`
+**Loop name:** Deliberatic Argumentation Loop
+**Version:** 0.1.0
+**Owner:** deliberatic.com
+**Workspace scope:** required
+
+**Phases (5 — `act` and `learn` canonical, three custom kinds for the argumentation protocol):**
+
+| Phase ID | Kind | Description |
+|---|---|---|
+| `open_round` | `custom: open_round` | Open a deliberation round, broadcast call-for-positions over A2A |
+| `submit_positions` | `custom: submit_positions` | Collect agent positions with attack/support relations and evidence pointers |
+| `compute_semantics` | `custom: compute_semantics` | Run weighted bipolar argumentation semantics; compute acceptability scores |
+| `commit_verdict` | `act` | Verdict committed to Merkle-chained evidence log; constitution validates |
+| `learn_calibration` | `learn` | Update domain-aware reputation and calibration tracking from outcome feedback |
+
+**Closure:** `learn_calibration → open_round` via Merkle log, guarantee `eventual`.
+
+**Cadence:** `event` (triggered by Delegatic when a task is flagged ambiguous or conflicted).
+
+**Substrates:**
+- `memory`: `graphonomous://workspace/{ws_id}` (evidence pointers, reputation history)
+- `policy`: `delegatic://workspace/{ws_id}` (constitution validation)
+- `audit`: `delegatic://workspace/{ws_id}/audit` + Merkle-chained evidence log
+- `auth`: `open_sentience://workspace/{ws_id}`
+- `transport`: `a2a` (native), `mcp` (alternate), `jsonrpc` (alternate)
+- `time`: optional
+
+**Invariants enabled:** `phase_atomicity`, `feedback_immutability`, `append_only_audit`, `quorum_before_commit`, `outcome_grounding`, `trace_id_propagation`. `kappa_routing` is not used.
+
+**Cross-loop connections:**
+- `verdict_to_agentromatic` — emits `DeliberationResult` from `commit_verdict` to `agentromatic.deliberation.execute` (verdict feeds task execution)
+- `outcome_to_prism` — emits `OutcomeSignal` from `learn_calibration` to `prism.benchmark.observe`
+
+**Why this matters:** Deliberatic and AgenTroMatic both emit the canonical `DeliberationResult` token. PULSE's five-token vocabulary means downstream loops cannot tell which deliberation engine produced a verdict — they consume the same envelope. This is the **substitutability** that PULSE enables across the portfolio.
+
+---
+
 ## 9. References
 
 1. Dung, P.M. (1995). "On the Acceptability of Arguments and its Fundamental Role in Nonmonotonic Reasoning, Logic Programming and n-Person Games." *Artificial Intelligence*, 77(2), 321–358.
