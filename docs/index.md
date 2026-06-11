@@ -2,6 +2,8 @@
 
 > **Structured argumentation. Fault-tolerant consensus. Cryptographic auditability.**
 
+> **Part of the [&] Protocol stack** · [Ecosystem overview](../../ECOSYSTEM.md) · [Three-protocol stack](../../PULSE/docs/THREE_PROTOCOL_STACK.md) · [Stack status](../../STACK_COMPLETION.md)
+
 Welcome to the documentation hub for **Deliberatic** — an open-source deliberation
 protocol for multi-agent AI systems. Deliberatic provides structured argumentation,
 Byzantine fault-tolerant consensus, and Merkle-chained evidence logs for agent
