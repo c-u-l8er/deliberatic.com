@@ -895,6 +895,171 @@
                     text-align: center;
                 }
             }
+
+            /* PLACEMENT: the governance gap matrix */
+            .gg-q {
+                max-width: 720px;
+                margin: 0 auto 44px;
+                text-align: center;
+                font-family: var(--fs);
+                font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+                font-style: italic;
+                line-height: 1.5;
+                color: var(--tx);
+            }
+            .gg-src {
+                max-width: 720px;
+                margin: 0 auto 40px;
+                padding: 16px 20px;
+                border: 1px solid var(--br);
+                border-radius: 10px;
+                background: var(--s1);
+                font-size: 0.78rem;
+                color: var(--tm);
+                line-height: 1.7;
+            }
+            .gg-src .gg-warn {
+                color: var(--am);
+            }
+            .gg-scores {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 12px;
+            }
+            .gg-score {
+                font-family: var(--fm);
+                font-size: 0.62rem;
+                padding: 3px 8px;
+                border-radius: 5px;
+                background: var(--s3);
+                color: var(--ts);
+                white-space: nowrap;
+            }
+            .gg-rows {
+                max-width: 860px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+                background: var(--br);
+                border: 1px solid var(--br);
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            .gg-row {
+                background: var(--s1);
+                padding: 22px 24px;
+                display: grid;
+                grid-template-columns: 168px 1fr;
+                gap: 20px;
+                align-items: start;
+            }
+            .gg-dim {
+                font-family: var(--fm);
+                font-size: 0.72rem;
+                color: var(--tx);
+                line-height: 1.5;
+            }
+            .gg-dim b {
+                display: block;
+                color: var(--am);
+                font-weight: 500;
+            }
+            .gg-field {
+                display: inline-block;
+                margin-top: 8px;
+                font-family: var(--fm);
+                font-size: 0.56rem;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                padding: 3px 7px;
+                border-radius: 4px;
+            }
+            .gg-field.absent {
+                background: rgba(248, 113, 113, 0.12);
+                color: var(--rd);
+            }
+            .gg-field.partial {
+                background: rgba(232, 168, 56, 0.12);
+                color: var(--am);
+            }
+            .gg-def {
+                font-size: 0.78rem;
+                color: var(--tm);
+                line-height: 1.7;
+                font-style: italic;
+                margin-bottom: 10px;
+            }
+            .gg-has {
+                font-size: 0.84rem;
+                color: var(--ts);
+                line-height: 1.7;
+            }
+            .gg-where {
+                font-family: var(--fm);
+                font-size: 0.58rem;
+                color: var(--td);
+                margin-top: 10px;
+                padding-top: 8px;
+                border-top: 1px solid var(--br);
+            }
+            .gg-gap {
+                color: var(--rd);
+            }
+            .gg-note {
+                max-width: 720px;
+                margin: 40px auto 0;
+                font-size: 0.86rem;
+                color: var(--ts);
+                line-height: 1.8;
+            }
+            .gg-note strong {
+                color: var(--tx);
+            }
+            .gg-do {
+                max-width: 860px;
+                margin: 32px auto 0;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                background: var(--br);
+                border: 1px solid var(--br);
+                border-radius: 12px;
+                overflow: hidden;
+            }
+            .gg-do a {
+                background: var(--s1);
+                padding: 22px 20px;
+                text-decoration: none;
+                display: block;
+                transition: background 0.2s;
+            }
+            .gg-do a:hover {
+                background: var(--s2);
+            }
+            .gg-do .gg-verb {
+                font-family: var(--fm);
+                font-size: 0.6rem;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+                color: var(--am);
+                margin-bottom: 8px;
+            }
+            .gg-do .gg-what {
+                font-size: 0.8rem;
+                color: var(--ts);
+                line-height: 1.6;
+            }
+            @media (max-width: 760px) {
+                .gg-row {
+                    grid-template-columns: 1fr;
+                    gap: 12px;
+                }
+                .gg-do {
+                    grid-template-columns: 1fr;
+                }
+            }
         </style>
         <script type="module" src="/amp-nav.js"></script>
     </head>
@@ -1057,6 +1222,259 @@
                         Research)
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- PLACEMENT: where this spec sits against the measured field -->
+        <section class="sb sp" id="placement">
+            <div class="sh">
+                <h2>
+                    What five protocols
+                    <span class="lo">cannot express</span>
+                </h2>
+                <p>
+                    Deliberatic is a specification. So is this section — it
+                    compares one document against another, and neither of them
+                    is a running system.
+                </p>
+            </div>
+
+            <div class="gg-q">
+                Can disagreement be preserved and governed rather than averaged
+                away?
+            </div>
+
+            <div class="gg-src">
+                <strong>Source.</strong> Richard Kang and Yudho Diponegoro,
+                <em
+                    >Governance Gaps in Agent Interoperability Protocols: What
+                    MCP, A2A, and ACP Cannot Express</em
+                >,
+                <a href="https://arxiv.org/abs/2606.31498">arXiv:2606.31498v1</a>,
+                30 June 2026. <span class="gg-warn">This is a preprint. It has
+                not been peer-reviewed</span>, and its authors record that the
+                &ldquo;Partial&rdquo; classification &ldquo;involves
+                judgment.&rdquo; It scores five protocols against six governance
+                dimensions, awarding 2 points for Supported, 1 for Partial and 0
+                for Absent — 12 possible. Read it and disagree with it; that is
+                the point of citing it rather than summarising it.
+                <div class="gg-scores">
+                    <span class="gg-score">MCP v1.1 — 1/12</span>
+                    <span class="gg-score">A2A v1.0.1 — 1/12</span>
+                    <span class="gg-score">ACP — 2/12</span>
+                    <span class="gg-score">ANP — 0/12</span>
+                    <span class="gg-score">ERC-8004 — 2/12</span>
+                </div>
+            </div>
+
+            <div class="gg-rows">
+                <div class="gg-row">
+                    <div class="gg-dim">
+                        <b>G1</b> Membership
+                        <span class="gg-field partial">partial · best of five</span>
+                    </div>
+                    <div>
+                        <div class="gg-def">
+                            &ldquo;Protocol encodes admission, invitation,
+                            removal, and role assignment for community
+                            participants.&rdquo;
+                        </div>
+                        <div class="gg-has">
+                            <span class="gg-gap"
+                                >Deliberatic does not address this.</span
+                            >
+                            A round has a minimum quorum of 3, but the protocol
+                            has no admission, invitation or removal primitive —
+                            it assumes a cluster already exists. Membership is
+                            <a href="https://delegatic.com">delegatic.com</a>'s
+                            subject, not this one.
+                        </div>
+                        <div class="gg-where">
+                            spec §3.2 quorum rules · gap named, not closed
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gg-row">
+                    <div class="gg-dim">
+                        <b>G2</b> Deliberation
+                        <span class="gg-field partial">partial · ACP only</span>
+                    </div>
+                    <div>
+                        <div class="gg-def">
+                            &ldquo;Protocol encodes structured argument exchange
+                            with turn-taking, challenge, and response
+                            semantics.&rdquo;
+                        </div>
+                        <div class="gg-has">
+                            Positions are nodes in a weighted bipolar
+                            argumentation graph; attack (<code>R⁻</code>) and
+                            support (<code>R⁺</code>) are edges in the formal
+                            tuple rather than conventions on top of it. Each
+                            round elects a Moderator — the highest-reputation
+                            agent that submitted no position — which is where
+                            turn governance lives.
+                        </div>
+                        <div class="gg-where">
+                            spec §2.1 DAF · §3.3 leader election
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gg-row">
+                    <div class="gg-dim">
+                        <b>G3</b> Voting
+                        <span class="gg-field absent">absent in all five</span>
+                    </div>
+                    <div>
+                        <div class="gg-def">
+                            &ldquo;Protocol encodes preference aggregation with
+                            quorum, rounds, and position resolution.&rdquo;
+                        </div>
+                        <div class="gg-has">
+                            Specified, and specified <em>against</em> majority
+                            voting: positions resolve by graded semantics —
+                            <code>σ</code> iterated to convergence — with a
+                            Raft-derived fast path when one position leads by
+                            more than τ and a PBFT-derived conflict path when it
+                            does not. The argument for that choice is on this
+                            page, above, with its citation.
+                        </div>
+                        <div class="gg-where">
+                            spec §2.2 graded semantics · §3.1 two-phase
+                            consensus · §3.2 quorum
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gg-row">
+                    <div class="gg-dim">
+                        <b>G4</b> Dissent preservation
+                        <span class="gg-field absent">absent in all five</span>
+                    </div>
+                    <div>
+                        <div class="gg-def">
+                            &ldquo;Protocol ensures minority positions are
+                            retained in decision outputs, not silently
+                            dropped.&rdquo;
+                        </div>
+                        <div class="gg-has">
+                            A losing position is not discarded: dissent records
+                            are hashed into the round's evidence tree, a
+                            dissenter later shown correct earns a 1.5× domain
+                            reputation bonus, and the constitution can carry the
+                            rule
+                            <code>trigger: "vindicated_dissents &gt;= 3"</code>,
+                            which opens a constitutional amendment vote. Being
+                            outvoted and being wrong are kept as separate facts.
+                        </div>
+                        <div class="gg-where">
+                            spec §5.1 evidence chain · §6.1 dissent-weighted ELO
+                            · §4.1 constitution DSL
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gg-row">
+                    <div class="gg-dim">
+                        <b>G5</b> Human escalation
+                        <span class="gg-field absent">absent in all five</span>
+                    </div>
+                    <div>
+                        <div class="gg-def">
+                            &ldquo;Protocol defines conditions and mechanisms for
+                            routing decisions to human authority.&rdquo;
+                        </div>
+                        <div class="gg-has">
+                            The condition is written as a constitutional rule —
+                            <code
+                                >human_impact == true → human_review ==
+                                true</code
+                            >
+                            — and a round in which every position is rejected
+                            escalates to human review over an A2A push
+                            notification. The paper's objection to routing a task
+                            to a human-backed agent is that it is routing rather
+                            than governance; a rule that fires on a property of
+                            the decision is the difference.
+                        </div>
+                        <div class="gg-where">
+                            spec §4.1 normative constraints · §7.1 A2A binding
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gg-row">
+                    <div class="gg-dim">
+                        <b>G6</b> Audit / replay
+                        <span class="gg-field partial">partial · MCP, ERC-8004</span>
+                    </div>
+                    <div>
+                        <div class="gg-def">
+                            &ldquo;Protocol produces tamper-evident event logs
+                            enabling deterministic reconstruction of the decision
+                            process.&rdquo;
+                        </div>
+                        <div class="gg-has">
+                            Every round produces a Merkle tree over its metadata,
+                            positions, evidence and dissent records, and
+                            publishes the root with the verdict. Where the paper
+                            finds partial audit, it finds it inherited from the
+                            substrate — a blockchain, a session — rather than
+                            designed for decisions. This is designed for
+                            decisions, which is a claim about the design and not
+                            about any log that exists.
+                        </div>
+                        <div class="gg-where">
+                            spec §5.1 Merkle-chained audit log · §5.2
+                            verification
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gg-note">
+                <strong>What the two documents together establish, exactly.</strong>
+                A published gap analysis finds that no evaluated protocol encodes
+                voting, dissent preservation or human escalation, and the
+                Deliberatic specification defines all three. That is a
+                comparison of one specification against another, and you can
+                check it in an afternoon by reading both.
+                <strong
+                    >It is not evidence that any of it works.</strong
+                >
+                No line of Deliberatic has been written. A specification that
+                covers a gap and a system that closes it are different objects,
+                and the distance between them is the whole of the work.
+            </div>
+
+            <div class="gg-do">
+                <a
+                    href="https://github.com/c-u-l8er/deliberatic.com/blob/main/docs/spec/README.md"
+                >
+                    <div class="gg-verb">Read</div>
+                    <div class="gg-what">
+                        The specification, v0.1-draft. Every section number cited
+                        above resolves in it.
+                    </div>
+                </a>
+                <a href="https://github.com/c-u-l8er/deliberatic.com/issues">
+                    <div class="gg-verb">Challenge</div>
+                    <div class="gg-what">
+                        Open an issue. A dimension we have claimed and do not
+                        cover is the most useful thing you can find here.
+                    </div>
+                </a>
+                <a
+                    href="https://github.com/c-u-l8er/deliberatic.com/blob/main/docs/spec/README.md#7-transport-bindings"
+                >
+                    <div class="gg-verb">Implement</div>
+                    <div class="gg-what">
+                        The transport bindings are specified for A2A, MCP and raw
+                        HTTP. An implementation that is not ours is the only
+                        thing that moves this off <code>spec</code>.
+                    </div>
+                </a>
             </div>
         </section>
 
