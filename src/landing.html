@@ -27,9 +27,15 @@
      order and sits behind it, because the question comes first. It renders no
      data: identity.js takes no input from this document and writes nothing
      back into it, and its counts are checked against every number printed
-     here. Remove the script tag and nothing on this page goes missing. -->
+     here. Remove the script tag and nothing on this page goes missing.
+
+     Five groups, drawn back to front: supports, attacks, the mean the picture
+     collapses into, the positions themselves, and the rings that mark a
+     position that lost and was kept anyway. The layer keeps pointer-events:
+     none — the pointer is read off window coordinates — so nothing here can
+     swallow a click, and the whole thing stays aria-hidden decoration. -->
 <div class="ident" aria-hidden="true" data-identity-animation>
-<svg viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet" focusable="false"><g class="id-sup"></g><g class="id-att"></g><g class="id-arg"></g></svg>
+<svg viewBox="0 0 320 320" preserveAspectRatio="xMidYMid meet" focusable="false"><g class="id-sup"></g><g class="id-att"></g><g class="id-mean"></g><g class="id-arg"></g><g class="id-ring"></g></svg>
 </div>
 </section>
 

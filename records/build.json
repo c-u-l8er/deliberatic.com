@@ -1,24 +1,24 @@
 {
   "_comment": "SHELL.md r6 hole 2. Written by build-site.mjs at the moment it emitted the artifact, and verified by launch-gate.mjs before it reads anything else. `inputs` is what the build read; `outputs` is what it wrote. If the build throws, this file is not rewritten, so a stale index.html no longer agrees with the sources beside it and the gate refuses. Do not hand-edit this file: it is a measurement, and editing it to make the gate pass is the one thing it exists to prevent.",
-  "built_at": "2026-08-17T17:00:54.728Z",
+  "built_at": "2026-08-17T23:15:18.773Z",
   "builder": "build-site.mjs",
   "inputs": {
-    "records/surface.json": "eb1ec8d99871eb9e4eccd1168e62949aa78f38005fc2e11966a969958394601d",
+    "records/surface.json": "3395e4f852791f82ec22dd203686c981130ef4f5427ad55570fce391224798d8",
     "package.json": "e5602761b10b94ce3aad4b3a469a385313da8c4bd633963a04a1eafb156205f9",
     "build-site.mjs": "d65ba6a5e7d278df31673e78f90e5f4c38cbdf34d4c79d01fba34291c08285e3",
-    "src/landing.html": "45bf120cab81a73e4d04a26eee7b7e3f10ef4af7a8330f6c53227bf3cfa65d06",
-    "src/shell.css": "adcf84911c36874ebaa733fb5472075d079dadc8ae81bb1f217dcd3039836e2a",
-    "src/identity.js": "11297bd97124744ad80dd4f4df47c28022e54a002dce228e0a4e17eaf68a233b",
+    "src/landing.html": "13616d4a773cd1c682627192fa22e5ecc033c00055b820501ff90bca340ef7df",
+    "src/shell.css": "6b53273d51c21cb86def6f1f35fba0b92d46ba82b57de3a08046c450d7d47450",
+    "src/identity.js": "9807d4c9130aec8de679d49be2d7663a7ff9c207257dc1ce162228414522493a",
     "src/say.js": "28f587bf574556a6602abe087998cec1a1fa4f2174a99973c4a943aa9766f047"
   },
   "outputs": {
     "index.html": {
-      "bytes": 47666,
-      "sha256": "36cead608ef6503c1e2dcb8f7618ce14afefb6438af0f3aa29d1cc705b5d8314"
+      "bytes": 48177,
+      "sha256": "692e16f77b324caac1c6ed39db2519a183ca056e51765175a1d3726d5446e5b9"
     },
     "identity.js": {
-      "bytes": 7358,
-      "sha256": "11297bd97124744ad80dd4f4df47c28022e54a002dce228e0a4e17eaf68a233b"
+      "bytes": 12718,
+      "sha256": "9807d4c9130aec8de679d49be2d7663a7ff9c207257dc1ce162228414522493a"
     },
     "say.js": {
       "bytes": 4770,

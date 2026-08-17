@@ -90,7 +90,12 @@ img,canvas,svg{max-width:100%}
   mask-image:radial-gradient(circle at 56% 50%,#000 46%,transparent 76%)}
 .ident svg{display:block;width:100%;height:100%}
 @media(min-width:861px){.hero .lede{max-width:min(52ch,56%)}}
-@media(max-width:860px){.ident{right:-30%;width:min(86vw,430px);opacity:.24}}
+/* -40px, not -30%: a percentage offset is relative to the hero, so at ~700px
+   it hung 192px of a 430px canvas past the section's overflow:hidden and
+   clipped the centre — the point the drawing collapses INTO. SHELL.md r13:
+   measure animRight - heroRight at every width; a sparse animation may just
+   be a cropped one. Now 40px at every width, the same as desktop. */
+@media(max-width:860px){.ident{right:-40px;width:min(86vw,430px);opacity:.24}}
 
 /* --- sections --- */
 section{padding:56px 0;border-top:1px solid var(--line)}
@@ -282,8 +287,16 @@ footer .links{display:flex;flex-wrap:wrap;gap:20px;min-width:0}
 
 /* --- IDENT: what this surface's animation looks like. Its own, entirely.
    Attacks are dashed and drift; supports are solid and quiet. No fill, no
-   labels, nothing that could be read as a value. --- */
+   labels, nothing that could be read as a value.
+
+   THE COLOUR IS THE ARGUMENT. A position carries the surface's own accent;
+   the elected one takes --data, the token this shell reserves for something
+   established; a position that lost keeps its colour and gains a ring. The
+   mean is --fg and nothing else — the collapse drains the distinction out of
+   the picture, which is the point being made about it. --- */
 .id-att line{stroke:var(--warn);stroke-width:1;stroke-dasharray:3 5}
 .id-sup line{stroke:var(--acc);stroke-width:1.2}
 .id-arg circle{fill:var(--acc)}
-.id-arg circle:nth-child(3n){fill:var(--fg)}
+.id-arg circle.win{fill:var(--data)}
+.id-ring circle{fill:none;stroke:var(--fg);stroke-width:1}
+.id-mean circle{fill:var(--fg)}
