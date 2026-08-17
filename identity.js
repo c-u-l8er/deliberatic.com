@@ -32,7 +32,12 @@
     /* IDENTITY-CONSTANTS-START */
     const ID_ARGS = 11;
     const ID_ATTACKS = 13;
-    const ID_SUPPORTS = 17;
+    /* Was 17 until the r9 contact form put a dated sentence on the page whose
+       day-of-month is 17, and the gate found the collision. SHELL.md §8.5
+       is unambiguous about which side moves: THE ANIMATION CHANGES, never the
+       page. The page's figures have witnesses; a decoration may pick any
+       number that is not also printed as a fact. 23 is not on the page. */
+    const ID_SUPPORTS = 23;
     const ID_SETTLE = 46;
     const ID_SEED = 60413;
     /* IDENTITY-CONSTANTS-END */

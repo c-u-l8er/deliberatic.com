@@ -259,6 +259,13 @@
 <h3>Retraction &mdash; what used to stand here</h3>
 <p>A waitlist button. It was wired to nothing: it changed its own label to &ldquo;Added &#10003;&rdquo; and discarded the address, under a note promising you could unsubscribe from a list that never existed. <b>A control that reports success it did not achieve is worse than one that plainly does not work</b>, so it is gone rather than repaired. There is no engine to download and no waitlist to join, and there is nowhere on this page that suggests otherwise.</p>
 </div>
+
+<div class="say-wrap">
+<h3>Tell us where this specification is wrong</h3>
+<p>Nothing here has run, so the most useful thing a visitor can send is a hole in the formalism — a quorum rule an adversary walks through, a semantics that does not do what §4 says it does, a number on this page you think is wrong.</p>
+{{SAY}}
+<p class="say-note"><b>This box is not that one.</b> The retraction above is about a control that reported success it had not achieved. This is a plain <code>&lt;form action method="POST"&gt;</code> posting to <code>formspree.io</code> when you press Send, so it delivers with scripting switched off entirely; the script that upgrades it to an inline reply prints &ldquo;sent&rdquo; only after the endpoint returns a 2xx, and prints what went wrong otherwise. That is the whole difference and it is the only difference worth claiming. Ruled 2026-08-17: the same endpoint <b>computedriven.com</b> uses. It is not a list and there is still nothing to be added to.</p>
+</div>
 </section>
 
 </div>
@@ -269,4 +276,9 @@
 </div></footer>
 
 <script src="/identity.js" defer></script>
+<!-- say.js only upgrades the contact form to an inline reply. The form is a
+     real <form action method="POST"> and delivers with this file blocked,
+     missing or switched off; see src/say.js. It is deliberately NOT part of
+     identity.js, which the gate forbids from touching page content at all. -->
+<script src="/say.js" defer></script>
 </body></html>

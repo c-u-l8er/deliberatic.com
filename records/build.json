@@ -1,0 +1,28 @@
+{
+  "_comment": "SHELL.md r6 hole 2. Written by build-site.mjs at the moment it emitted the artifact, and verified by launch-gate.mjs before it reads anything else. `inputs` is what the build read; `outputs` is what it wrote. If the build throws, this file is not rewritten, so a stale index.html no longer agrees with the sources beside it and the gate refuses. Do not hand-edit this file: it is a measurement, and editing it to make the gate pass is the one thing it exists to prevent.",
+  "built_at": "2026-08-17T17:00:54.728Z",
+  "builder": "build-site.mjs",
+  "inputs": {
+    "records/surface.json": "eb1ec8d99871eb9e4eccd1168e62949aa78f38005fc2e11966a969958394601d",
+    "package.json": "e5602761b10b94ce3aad4b3a469a385313da8c4bd633963a04a1eafb156205f9",
+    "build-site.mjs": "d65ba6a5e7d278df31673e78f90e5f4c38cbdf34d4c79d01fba34291c08285e3",
+    "src/landing.html": "45bf120cab81a73e4d04a26eee7b7e3f10ef4af7a8330f6c53227bf3cfa65d06",
+    "src/shell.css": "adcf84911c36874ebaa733fb5472075d079dadc8ae81bb1f217dcd3039836e2a",
+    "src/identity.js": "11297bd97124744ad80dd4f4df47c28022e54a002dce228e0a4e17eaf68a233b",
+    "src/say.js": "28f587bf574556a6602abe087998cec1a1fa4f2174a99973c4a943aa9766f047"
+  },
+  "outputs": {
+    "index.html": {
+      "bytes": 47666,
+      "sha256": "36cead608ef6503c1e2dcb8f7618ce14afefb6438af0f3aa29d1cc705b5d8314"
+    },
+    "identity.js": {
+      "bytes": 7358,
+      "sha256": "11297bd97124744ad80dd4f4df47c28022e54a002dce228e0a4e17eaf68a233b"
+    },
+    "say.js": {
+      "bytes": 4770,
+      "sha256": "28f587bf574556a6602abe087998cec1a1fa4f2174a99973c4a943aa9766f047"
+    }
+  }
+}
