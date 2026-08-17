@@ -418,9 +418,11 @@ T("the LIMIT row names something the evidence does NOT establish",
        comment-stripped source computed at the top of this file, for exactly the
        reason given there. Both still bite: this animation is 7,191 / 12,467.
 
-       NOT YET APPLIED to agentromatic, delegatic, fleetprompt or specprompt,
-       which keep the single 9,000 check and have the headroom for it. Recorded
-       so the divergence is visible rather than discovered. 2026-08-17. */
+       delegatic took the same split the same day, for the same reason and with
+       the same note. NOT YET APPLIED to agentromatic, fleetprompt or
+       specprompt, which keep the single 9,000 check and have the headroom for
+       it. Recorded so the divergence is visible rather than discovered, and
+       kept current: this list was already stale within the hour. 2026-08-17. */
     /* EVERY CHECK ABOVE READS THIS FILE AS TEXT. None of them asks whether it
        is JavaScript. A missing brace ships an animation that throws on load —
        the page is unharmed (§8 guarantees that) but the hero is silently empty,
