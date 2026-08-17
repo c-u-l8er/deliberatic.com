@@ -1,0 +1,104 @@
+{
+  "schema": "computedriven-surface-v1",
+  "_comment": "The frozen record this surface is generated from. build-site.mjs reads it and emits index.html; launch-gate.mjs reads the EMITTED index.html and refuses to publish when the artifact and this file disagree. Nothing on the page may state a rung, a status or a scope that is not here.",
+
+  "shell_revision": "shell-r4",
+  "_shell_revision_comment": "The revision of agents/SHELL.md this surface was built against. SHELL.md's own revision block asks for it, and the reason is good: every lane so far has found a defect in that document, and a surface that records which revision it was built against is the only way to know later which pages carry a fix and which predate it. r4 = tier-4 band variant, --fg3 at .55, §8 identifying animation required. NOTE: the revision block was added to SHELL.md while this lane was running; the document read at the start of the run already contained all of r2, r3 and r4, so this surface is r4 in substance as well as in label.",
+
+  "version": "0.3.0",
+  "origin": "https://deliberatic.com",
+  "repo": "https://github.com/c-u-l8er/deliberatic.com",
+  "surface": "Deliberatic",
+  "parent": "ComputeDriven",
+
+  "nav_tier": 3,
+  "_nav_tier_comment": "ampersand-nav/src/amp-nav.js (HEAD d0a6415) records `deliberatic: { place: 3, rung: \"spec\", spec: \"…docs.ampersandboxdesign.com…\" }`. Place 3 is \"a specification in the ComputeDriven world\" — NOT the place-2 layer sentence, and NOT the place-4 attribution variant. SHELL.md §1 says check the tier before you write the band, because that is exactly how gpscoord shipped a membership claim its own nav excluded. Checked 2026-08-16.",
+  "spec_url": "https://docs.ampersandboxdesign.com/#/deliberatic.com/docs/spec/README.md",
+
+  "question": "Can disagreement be preserved and governed rather than averaged away?",
+
+  "surface_rung": "spec",
+  "surface_rung_covers": "the protocol document at docs/spec/README.md, v0.1-draft — no line of Deliberatic has been written and nothing on this domain runs",
+  "rung_witness": "spec_document_exists",
+  "_rung_witness_comment": "Which gate establishes the surface rung. launch-gate.mjs refuses if THAT gate is not approved. GPSCoord's rule — 'any pending gate keeps the surface below live_deployed' — is too blunt: independent_use is pending forever by construction, so under that rule no surface could ever reach a deployed rung.",
+  "verified_at": "2026-08-16",
+
+  "status": {
+    "statement": "A specification, and this page. The weighted bipolar argumentation framework, the two-phase consensus, the constitution DSL, the Merkle evidence chains and the reputation system are all written down in detail, and none of them have been implemented.",
+    "source": "docs/spec/README.md in this repository, v0.1-draft. Every section number cited on this page was checked to resolve in it on 2026-08-16.",
+    "limit": "This establishes that a document exists and that it addresses the dimensions named below. It does not establish that the semantics converge on any real graph, that the consensus protocol is correct, or that a single line of Deliberatic has ever run. A specification that covers a gap and a system that closes it are different objects."
+  },
+
+  "advance": {
+    "next_rung": "in_tree",
+    "requires": "Code in a repository that implements §2.2 graded semantics and passes a test. The transport bindings in §7 are specified for A2A, MCP and raw HTTP, so an implementation that is not ours would move this further still — that is the only thing that can."
+  },
+
+  "citation": {
+    "authors": "Richard Kang and Yudho Diponegoro",
+    "title": "Governance Gaps in Agent Interoperability Protocols: What MCP, A2A, and ACP Cannot Express",
+    "id": "arXiv:2606.31498v1",
+    "url": "https://arxiv.org/abs/2606.31498",
+    "date": "30 June 2026",
+    "peer_reviewed": false,
+    "_peer_reviewed_comment": "It is a preprint. The page says so in --warn, and the paper's own 'Partial classification involves judgment' limitation is quoted rather than hidden. A source cited only where it flatters is not a source.",
+    "scoring": "2 points for Supported, 1 for Partial, 0 for Absent, over six dimensions — 12 possible.",
+    "scores": [
+      "MCP v1.1 — 1/12",
+      "A2A v1.0.1 — 1/12",
+      "ACP — 2/12",
+      "ANP — 0/12",
+      "ERC-8004 — 2/12"
+    ]
+  },
+
+  "contact": {
+    "kind": "github_issues",
+    "url": "https://github.com/c-u-l8er/deliberatic.com/issues",
+    "_comment": "Deliberately not a mailto: — Travis's call, 2026-08-11 — and deliberately not another surface's Formspree endpoint. This page carried no mailto:; its two siblings did, and both are removed in the same commit. Whether the governance trio gets a Formspree endpoint of its own is [TRAVIS]."
+  },
+
+  "gates": {
+    "_comment": "A gate may not read approved without its evidence, reviewer and date fields, and launch-gate.mjs enforces that.",
+    "spec_document_exists": {
+      "label": "The specification this page describes is in the tree and its cited sections resolve",
+      "status": "approved",
+      "description": "Every section number printed on this page — 2.1, 2.2, 3.1, 3.2, 3.3, 4.1, 5.1, 5.2, 6.1, 7.1 — was matched against the headings of docs/spec/README.md.",
+      "evidence": "grep -nE '^#{1,3} ' docs/spec/README.md, compared against the section references emitted into index.html; re-checked mechanically by launch-gate.mjs on every run.",
+      "reviewer": "launch-gate.mjs, run against the emitted index.html",
+      "date": "2026-08-16"
+    },
+    "source_read_not_summarised": {
+      "label": "The cited preprint was read, not summarised",
+      "status": "approved",
+      "description": "Every quoted definition is the paper's own wording, taken from the HTML rather than a search result or a PDF summariser. This project has produced a wrong taxonomy twice from summarising passes, in this exact subject area.",
+      "evidence": "arxiv.org/html/2606.31498v1, read directly; the paper's own 'Partial classification involves judgment' limitation is quoted on the page.",
+      "reviewer": "lane L, commit 7421ecf",
+      "date": "2026-08-16"
+    },
+    "implementation": {
+      "label": "Any of this has been implemented",
+      "status": "pending",
+      "description": "There is no code. The rung is spec and stays there until something runs.",
+      "evidence": null,
+      "reviewer": null,
+      "date": null
+    },
+    "deployed_route_check": {
+      "label": "This revision answers on deliberatic.com",
+      "status": "pending",
+      "description": "The deployed copy is the previous revision. Nothing here has been read back from the domain it describes.",
+      "evidence": null,
+      "reviewer": null,
+      "date": null
+    },
+    "independent_use": {
+      "label": "Someone who is not us implemented or refuted the specification",
+      "status": "pending",
+      "description": "The only rung nobody here can award themselves. An outside implementation of §2.2, or a filed issue showing the semantics do not converge.",
+      "evidence": null,
+      "reviewer": null,
+      "date": null
+    }
+  }
+}
